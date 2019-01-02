@@ -1,5 +1,5 @@
 terraform {
   backend "gcs" {
-    bucket = "TF-Test-tfstate-val"
+    bucket = "tf-test-tfstate-val"
     }
 }
