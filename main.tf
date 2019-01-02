@@ -1,22 +1,21 @@
-resource "google_compute_instance" "ldvs_vm" {
-    name         = "instance-1"
-    machine_type = "n1-standard-1"    # For testing
-  zone         = "us-west1-c"
-  tags         = ["ldvs", "linux", "connect"]
-  project      = "tf-admin-project-225303"
-  min_cpu_platform = "Intel Skylake"
+// Create a new instance
+provider "google" { }
 
- boot_disk {
-    initialize_params {
-      image = "${data.google_compute_image.current_image.self_link}"
+resource "google_compute_instance" "test" {
+  count        = 1 // Adjust as desired
+  name         = "test${count.index + 1}" // yields "test1", "test2", etc. It's also the machine's name and hostname
+  machine_type = "f1-micro" // smallest (CPU &amp; RAM) available instance
+  zone         = "us-central1-b" // yields "europe-west1-d" as setup previously. Places your VM in Europe
+ 
+boot_disk {
+initialize_params {
+      image = "debian-cloud/debian-9"
     }
   }
-
   network_interface {
-    network = "default"
-
+    network = "default" 
     access_config {
-      // Ephemeral IP
-    }
+          network_tier = "STANDARD"
+         }
+    } 
   }
-}
