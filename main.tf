@@ -1,5 +1,6 @@
 // Create a new instance
-provider "google" { }
+provider "google" { 
+  project = "tf-admin-project-225303" }
 
 resource "google_compute_instance" "test" {
   count        = 1 // Adjust as desired
